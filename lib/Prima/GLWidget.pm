@@ -42,10 +42,15 @@ sub notify
 	return $self-> SUPER::notify( $command, @params )
 		unless $command eq 'Paint';
 
+	unless ( Prima::OpenGL::context_push()) {
+		warn Prima::OpenGL::last_error();
+		return;
+	}
 	$self-> gl_select;
 	my $ret = $self-> SUPER::notify( $command, @params );
 	$self-> gl_flush;
-	$self-> gl_unselect;
+	Prima::OpenGL::context_pop();
+
 	return $ret;
 }
 

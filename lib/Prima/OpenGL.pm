@@ -10,7 +10,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 sub dl_load_flags { 0x01 };
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 @EXPORT = qw();
 @EXPORT_OK = qw();
 %EXPORT_TAGS = ();
@@ -75,6 +75,29 @@ sub gl_flush
 	my $ctx = shift-> {__gl_context};
 	Prima::OpenGL::flush($ctx) if $ctx;
 }
+
+sub gl_do
+{
+	my ( $self, $sub, @param ) = @_;
+	unless ( Prima::OpenGL::context_push()) {
+		warn Prima::OpenGL::last_error();
+		return;
+	}
+	$self-> gl_select;
+	my ($fail, @ret);
+	eval { 
+		if (wantarray) {
+			@ret    = $sub->(@param);
+		} else {
+			$ret[0] = $sub->(@param);
+		}
+	};
+	Prima::OpenGL::context_pop();
+	$fail = $@;
+	die $fail if $fail;
+	return wantarray ? @ret : $ret[0];
+}
+
 __END__
 
 =pod
@@ -117,6 +140,16 @@ is False, then a rendering context that renders through the X server is always
 created.  Direct rendering provides a performance advantage in some
 implementations.  However, direct rendering contexts cannot be shared outside a
 single process, and they may be unable to render to GLX
+
+I here may add that you I needed that option when was testing cygwin
+implementation of the module in no-X11 environment. I couldn't get my X11
+working on windows, and installed one under VirtualBox.  However, the only way
+I could connect to X server there was to tell VirtualBox to forward the port
+6000 inside the emulator to the host machine's 6000. GLX was happy finding that
+the connection was local, and tried to use shared memory or whatever underlies
+"direct" connection, and failed, instead of doing a soft fall-back to x11
+protocol. The only way to make it work in such condition was explicitly setting
+config to "xserver".
 
 Actual for x11 only.
 
@@ -178,6 +211,15 @@ the minimum size is preferred.
 
 =over
 
+=item context_push
+
+Pushes the current GL context on an internal stack; there can be only 32 entries. Returns success flag.
+
+=item context_pop
+
+Pops the top GL context from the stack, and selects it. Returns success flag.
+
+
 =item last_error
 
 Call C<last_error> that returns string representation of the last error, or undef if there was none.
@@ -211,7 +253,7 @@ leak.
 Shortcut for gl_create and gl_select. 
 See valid C<%config> values in L<Selection of a GL visual> .
 
-=item gl_end_state
+=item gl_end_paint
 
 Shortcut for gl_flush and gl_destroy.
 
@@ -226,6 +268,10 @@ Associates the widget visual with current GL context, so GL functions can be use
 =item gl_unselect
 
 Disassociates any GL context.
+
+=item gl_do &SUB
+
+Executes &SUB within current GL context, restores context after the SUB is finished.
 
 =item gl_flush
 
