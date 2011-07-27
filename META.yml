@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Prima-OpenGL
-version:            0.02
+version:            0.03
 abstract:           Prima extension for OpenGL drawing
 author:
     - Dmitry Karasik <dmitry@karasik.eu.org>
