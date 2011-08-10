@@ -1,13 +1,13 @@
 --- #YAML:1.0
 name:               Prima-OpenGL
-version:            0.03
+version:            0.04
 abstract:           Prima extension for OpenGL drawing
 author:
     - Dmitry Karasik <dmitry@karasik.eu.org>
 license:            unknown
 distribution_type:  module
 configure_requires:
-    ExtUtils::MakeMaker:  0
+    Prima:  1.30
 build_requires:
     ExtUtils::MakeMaker:  0
 requires:
