@@ -1,0 +1,43 @@
+{
+   "abstract" : "Prima extension for OpenGL drawing",
+   "author" : [
+      "Dmitry Karasik <dmitry@karasik.eu.org>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "unknown"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Prima-OpenGL",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Prima" : "1.30"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "OpenGL" : "0.64",
+            "Prima" : "1.30",
+            "perl" : "5.008"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.05"
+}

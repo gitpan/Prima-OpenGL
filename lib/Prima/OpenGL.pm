@@ -1,4 +1,3 @@
-# $Id$
 package Prima::OpenGL;
 use strict;
 use Prima;
@@ -10,14 +9,15 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 sub dl_load_flags { 0x01 };
 
-$VERSION = '0.04';
+$VERSION = '0.05';
 @EXPORT = qw();
 @EXPORT_OK = qw();
 %EXPORT_TAGS = ();
 
 bootstrap Prima::OpenGL $VERSION;
 
-package Prima::Drawable;
+package 
+    Prima::Drawable; # double line needed for CPAN indexer, it thinks THIS is that module
 
 # Now inject GL functions
 
@@ -141,7 +141,7 @@ created.  Direct rendering provides a performance advantage in some
 implementations.  However, direct rendering contexts cannot be shared outside a
 single process, and they may be unable to render to GLX
 
-I here may add that you I needed that option when was testing cygwin
+I here may add that I needed that option when was testing cygwin
 implementation of the module in no-X11 environment. I couldn't get my X11
 working on windows, and installed one under VirtualBox.  However, the only way
 I could connect to X server there was to tell VirtualBox to forward the port

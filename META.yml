@@ -1,24 +1,24 @@
---- #YAML:1.0
-name:               Prima-OpenGL
-version:            0.04
-abstract:           Prima extension for OpenGL drawing
+---
+abstract: Prima extension for OpenGL drawing
 author:
-    - Dmitry Karasik <dmitry@karasik.eu.org>
-license:            unknown
-distribution_type:  module
-configure_requires:
-    Prima:  1.30
+  - 'Dmitry Karasik <dmitry@karasik.eu.org>'
 build_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    OpenGL:  0.64
-    perl:    5.008
-    Prima:   1.30
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.56
+  ExtUtils::MakeMaker: 0
+configure_requires:
+  Prima: 1.30
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921'
+license: unknown
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Prima-OpenGL
+no_index:
+  directory:
+    - t
+    - inc
+requires:
+  OpenGL: 0.64
+  Prima: 1.30
+  perl: 5.008
+version: 0.05
